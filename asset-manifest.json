@@ -1,16 +1,10 @@
 {
   "files": {
-    "main.css": "/mtg-friend/static/css/main.073c9b0a.css",
-    "main.js": "/mtg-friend/static/js/main.1db408a5.js",
-    "static/js/787.e34a8154.chunk.js": "/mtg-friend/static/js/787.e34a8154.chunk.js",
-    "static/media/logo.svg": "/mtg-friend/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "main.js": "/mtg-friend/static/js/main.770c3313.js",
     "index.html": "/mtg-friend/index.html",
-    "main.073c9b0a.css.map": "/mtg-friend/static/css/main.073c9b0a.css.map",
-    "main.1db408a5.js.map": "/mtg-friend/static/js/main.1db408a5.js.map",
-    "787.e34a8154.chunk.js.map": "/mtg-friend/static/js/787.e34a8154.chunk.js.map"
+    "main.770c3313.js.map": "/mtg-friend/static/js/main.770c3313.js.map"
   },
   "entrypoints": [
-    "static/css/main.073c9b0a.css",
-    "static/js/main.1db408a5.js"
+    "static/js/main.770c3313.js"
   ]
 }
