@@ -5,7 +5,7 @@ export const ButtonReset = styled.button`
   color: inherit;
   border: none;
   padding: 0;
-  font: inherit;
+  font-family: 'Noto Sans Mono', monospace;
   cursor: pointer;
   outline: inherit;
   text-rendering: inherit;
@@ -15,4 +15,5 @@ export const ButtonReset = styled.button`
   text-shadow: inherit;
   text-align: inherit;
   align-items: inherit;
+  user-select: none;
 `;
