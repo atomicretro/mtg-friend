@@ -1,15 +1,17 @@
 import * as React from 'react';
 
 interface IPlayerContext {
-  players: number[];
   decrementLifeTotal: (idx: number) => void;
   incrementLifeTotal: (idx: number) => void;
+  players: number[];
+  resetAllLifeTotals: () => void;
 }
 
 const PlayerContext = React.createContext<IPlayerContext>({
-  players: [],
   decrementLifeTotal: () => {},
   incrementLifeTotal: () => {},
+  players: [],
+  resetAllLifeTotals: () => {},
 });
 
 interface IProps {
@@ -43,10 +45,15 @@ export const PlayerProvider = ({ children }: IProps) => {
     setPlayersState(nextPlayers);
   };
 
+  const resetAllLifeTotals = () => {
+    setPlayersState(players.map(() => 20));
+  };
+
   const value = {
     decrementLifeTotal,
     incrementLifeTotal,
     players,
+    resetAllLifeTotals,
   };
 
   return (
