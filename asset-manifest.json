@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/mtg-friend/static/js/main.770c3313.js",
+    "main.js": "/mtg-friend/static/js/main.b8a400c0.js",
     "index.html": "/mtg-friend/index.html",
-    "main.770c3313.js.map": "/mtg-friend/static/js/main.770c3313.js.map"
+    "main.b8a400c0.js.map": "/mtg-friend/static/js/main.b8a400c0.js.map"
   },
   "entrypoints": [
-    "static/js/main.770c3313.js"
+    "static/js/main.b8a400c0.js"
   ]
 }
