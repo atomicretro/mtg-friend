@@ -36,7 +36,7 @@ export function LifeButton(props: ILifeButtonProps) {
   const buttonText = React.useMemo(() => type === 'decrement' ? '-1' : '+1', [type]);
 
   return (
-    <StyledLifeButton className={type} onClick={onClick} type='button'>
+    <StyledLifeButton className={type} onPointerDown={onClick} type='button'>
       {buttonText}
     </StyledLifeButton>
   )

@@ -9,13 +9,13 @@ import { LifeButton } from './Buttons/LifeButton';
 const StyledLifeCounter = styled.li<{ order: number }>`
   display: flex;
   flex-direction: row;
-  flex-grow: 1;
+  flex-grow: 3;
   order: ${({ order }) => order};
   font-family: 'Noto Sans Mono', monospace;
   user-select: none;
   border: 6px solid #000000;
   border-radius: 24px;
-  margin: 36px 10px;
+  margin: 20px 10px;
 
   .life-total {
     display: flex;
