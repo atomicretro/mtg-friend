@@ -6,7 +6,7 @@ import { usePlayerContext } from '../providers/PlayerProvider';
 import { LifeButton } from './Buttons/LifeButton';
 
 
-const StyledLifeCounter = styled.li<{ order: number }>`
+const StyledLifeCounter = styled.li<{ flipped?: boolean, order: number }>`
   display: flex;
   flex-direction: row;
   flex-grow: 3;
@@ -16,6 +16,7 @@ const StyledLifeCounter = styled.li<{ order: number }>`
   border: 6px solid #000000;
   border-radius: 24px;
   margin: 20px 10px;
+  ${({ flipped }) => flipped && 'rotate: 180deg;'};
 
   .life-total {
     display: flex;
@@ -27,17 +28,18 @@ const StyledLifeCounter = styled.li<{ order: number }>`
 `;
 
 interface ILifeCounterProps {
+  flipped?: boolean;
   idx: number;
   lifeTotal: number;
   order: number;
 }
 
 export function LifeCounter(props: ILifeCounterProps) {
-  const { idx, lifeTotal, order } = props;
+  const { flipped, idx, lifeTotal, order } = props;
   const { decrementLifeTotal, incrementLifeTotal } = usePlayerContext();
 
   return (
-    <StyledLifeCounter order={order}>
+    <StyledLifeCounter flipped={flipped} order={order}>
       <LifeButton onClick={() => decrementLifeTotal(idx)} type='decrement' />
       <div className='life-total'>{lifeTotal}</div>
       <LifeButton onClick={() => incrementLifeTotal(idx)} type='increment' />

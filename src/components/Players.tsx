@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
+import { useConfigContext } from '../providers/ConfigProvider';
 import { usePlayerContext } from '../providers/PlayerProvider';
 
 import { LifeCounter } from './LifeCounter';
@@ -17,6 +18,7 @@ const StyledPlayers = styled.ul`
 `;
 
 export function Players() {
+  const { p1Flipped } = useConfigContext();
   const { players } = usePlayerContext();
 
   const totalPlayers = React.useMemo(() => players.length, [players]);
@@ -29,9 +31,17 @@ export function Players() {
         order = 3;
       }
 
-      return <LifeCounter idx={idx} key={idx} lifeTotal={player} order={order} />
+      return (
+        <LifeCounter
+          flipped={idx === 0 && p1Flipped}
+          idx={idx}
+          key={idx}
+          lifeTotal={player}
+          order={order}
+        />
+      );
     })
-  ), [players, totalPlayers]);
+  ), [p1Flipped, players, totalPlayers]);
 
   return (
     <StyledPlayers>

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
+import { useConfigContext } from '../providers/ConfigProvider';
 import { usePlayerContext } from '../providers/PlayerProvider';
 
 import { IconButton } from './Buttons/IconButton';
@@ -38,6 +39,7 @@ interface IPlayersConfigProps {
 
 export function PlayersConfig(props: IPlayersConfigProps) {
   const { order } = props;
+  const { openSettingsModal } = useConfigContext();
   const { resetAllLifeTotals } = usePlayerContext();
 
   const [dayTime, setDayTime] = React.useState(true);
@@ -56,7 +58,7 @@ export function PlayersConfig(props: IPlayersConfigProps) {
           <MagnifyIcon />
         </IconButton>
 
-        <IconButton onClick={() => {}} className='settings'>
+        <IconButton onClick={openSettingsModal} className='settings'>
           <GearIcon />
         </IconButton>
     </StyledPlayersConfig>
