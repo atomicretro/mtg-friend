@@ -6,6 +6,7 @@ import { PlayerProvider } from '../providers/PlayerProvider';
 
 import { Players } from './Players';
 import { SettingsModal } from './SettingsModal';
+import { LookupModal } from './LookupModal';
 
 const StyledMain = styled.main`
   position: relative;
@@ -13,11 +14,12 @@ const StyledMain = styled.main`
 `;
 
 export function Main() {
-  const { isSettingsModalOpen } = useConfigContext();
+  const { isLookupModalOpen, isSettingsModalOpen } = useConfigContext();
 
   return (
     <StyledMain>
       { isSettingsModalOpen && <SettingsModal /> }
+      { isLookupModalOpen && <LookupModal /> }
       <PlayerProvider>
         <Players />
       </PlayerProvider>

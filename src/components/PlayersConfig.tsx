@@ -39,7 +39,7 @@ interface IPlayersConfigProps {
 
 export function PlayersConfig(props: IPlayersConfigProps) {
   const { order } = props;
-  const { openSettingsModal } = useConfigContext();
+  const { openLookupModal, openSettingsModal } = useConfigContext();
   const { resetAllLifeTotals } = usePlayerContext();
 
   const [dayTime, setDayTime] = React.useState(true);
@@ -54,7 +54,7 @@ export function PlayersConfig(props: IPlayersConfigProps) {
           {dayTime ? <SunIcon /> : <MoonIcon />}
         </IconButton>
 
-        <IconButton onClick={() => {}} className='menu'>
+        <IconButton onClick={openLookupModal} className='menu'>
           <MagnifyIcon />
         </IconButton>
 
