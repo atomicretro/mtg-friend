@@ -22,6 +22,8 @@ const StyledSettingsModal = styled(Modal)`
   }
 `;
 
+// SVGs from https://www.svgrepo.com/
+
 export function SettingsModal() {
   const {
     closeSettingsModal,

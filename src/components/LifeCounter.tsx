@@ -18,13 +18,23 @@ const StyledLifeCounter = styled.li<{ flipped?: boolean, order: number }>`
   margin: 20px 10px;
   ${({ flipped }) => flipped && 'rotate: 180deg;'};
 
-  .life-total {
+  .player-info {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-grow: 3;
-    font-size: 60px;
-  } 
+
+    .life {
+      font-size: 60px;
+    }
+
+    .name {
+      position: absolute;
+      bottom: 20px;
+      font-size: 20px;
+    }
+  }
 `;
 
 interface ILifeCounterProps {
@@ -41,7 +51,10 @@ export function LifeCounter(props: ILifeCounterProps) {
   return (
     <StyledLifeCounter flipped={flipped} order={order}>
       <LifeButton onClick={() => decrementLifeTotal(idx)} type='decrement' />
-      <div className='life-total'>{lifeTotal}</div>
+      <div className='player-info'>
+        <span className='life'>{lifeTotal}</span>
+        <span className='name'>Player {idx + 1}</span>
+      </div>
       <LifeButton onClick={() => incrementLifeTotal(idx)} type='increment' />
     </StyledLifeCounter>
   );
