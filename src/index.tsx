@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { createGlobalStyle } from 'styled-components';
 
 import { ConfigProvider } from './providers/ConfigProvider';
+import { ModalProvider } from './providers/ModalProvider';
 
 import { Main } from './components/Main';
 
@@ -17,7 +18,9 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
 root.render(
   <ConfigProvider>
-    <GlobalStyles />
-    <Main />
+    <ModalProvider>
+      <GlobalStyles />
+      <Main />
+    </ModalProvider>
   </ConfigProvider>
 );

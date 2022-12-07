@@ -1,23 +1,11 @@
 import * as React from 'react';
 
 interface IConfigContext {
-  closeLookupModal: () => void;
-  closeSettingsModal: () => void;
-  isLookupModalOpen: boolean;
-  isSettingsModalOpen: boolean;
-  openLookupModal: () => void;
-  openSettingsModal: () => void;
   p1Flipped: boolean;
   toggleP1Flipped: () => void;
 }
 
 const ConfigContext = React.createContext<IConfigContext>({
-  closeLookupModal: () => {},
-  closeSettingsModal: () => {},
-  isLookupModalOpen: false,
-  isSettingsModalOpen: false,
-  openLookupModal: () => {},
-  openSettingsModal: () => {},
   p1Flipped: false,
   toggleP1Flipped: () => {},
 });
@@ -39,20 +27,11 @@ export const ConfigProvider = ({ children }: IProps) => {
   }, [setP1Flipped]);
   React.useEffect(() => { setP1FlippedState(p1Flipped); }, [p1Flipped, setP1FlippedState]);
 
-  const [settingsModalOpen, setSettingsModalOpen] = React.useState(false);
-  const [lookupModalOpen, setLookupModalOpen] = React.useState(false);
-
   const toggleP1Flipped = React.useCallback(() => {
     setP1FlippedState(!p1Flipped);
   }, [p1Flipped, setP1FlippedState]);
 
   const value = {
-    closeLookupModal: () => { setLookupModalOpen(false) },
-    closeSettingsModal: () => { setSettingsModalOpen(false) },
-    isLookupModalOpen: lookupModalOpen,
-    isSettingsModalOpen: settingsModalOpen,
-    openLookupModal: () => { setLookupModalOpen(true) },
-    openSettingsModal: () => { setSettingsModalOpen(true) },
     p1Flipped,
     toggleP1Flipped,
   };

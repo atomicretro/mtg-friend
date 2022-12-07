@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
-import { useConfigContext } from '../providers/ConfigProvider';
+import { ModalTypes, useModalContext } from '../providers/ModalProvider';
 import { usePlayerContext } from '../providers/PlayerProvider';
 
 import { IconButton } from './Buttons/IconButton';
@@ -39,7 +39,7 @@ interface IPlayersConfigProps {
 
 export function PlayersConfig(props: IPlayersConfigProps) {
   const { order } = props;
-  const { openLookupModal, openSettingsModal } = useConfigContext();
+  const { openModal } = useModalContext();
   const { resetAllLifeTotals } = usePlayerContext();
 
   const [dayTime, setDayTime] = React.useState(true);
@@ -54,11 +54,11 @@ export function PlayersConfig(props: IPlayersConfigProps) {
           {dayTime ? <SunIcon /> : <MoonIcon />}
         </IconButton>
 
-        <IconButton onClick={openLookupModal} className='menu'>
+        <IconButton onClick={() => openModal(ModalTypes.LOOKUP)} className='menu'>
           <MagnifyIcon />
         </IconButton>
 
-        <IconButton onClick={openSettingsModal} className='settings'>
+        <IconButton onClick={() => openModal(ModalTypes.SETTINGS)} className='settings'>
           <GearIcon />
         </IconButton>
     </StyledPlayersConfig>

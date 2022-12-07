@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
-import { useConfigContext } from '../providers/ConfigProvider';
+import { useModalContext } from '../providers/ModalProvider';
 
 import { Modal } from './Modal';
 import { CloseButton } from './Buttons/CloseButton';
@@ -22,11 +22,11 @@ const StyledLookupModal = styled(Modal)`
 `;
 
 export function LookupModal() {
-  const { closeLookupModal } = useConfigContext();
+    const { closeModal } = useModalContext();
 
   return (
     <StyledLookupModal>
-      <CloseButton onClick={closeLookupModal} />
+      <CloseButton onClick={closeModal} />
       <h2>MTG Glossary</h2>
 
     </StyledLookupModal>

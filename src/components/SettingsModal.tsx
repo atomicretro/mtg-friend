@@ -2,6 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 
 import { useConfigContext } from '../providers/ConfigProvider';
+import { useModalContext } from '../providers/ModalProvider';
 
 import { Modal } from './Modal';
 import { CloseButton } from './Buttons/CloseButton';
@@ -26,14 +27,14 @@ const StyledSettingsModal = styled(Modal)`
 
 export function SettingsModal() {
   const {
-    closeSettingsModal,
     p1Flipped,
     toggleP1Flipped,
   } = useConfigContext();
+  const { closeModal } = useModalContext();
 
   return (
     <StyledSettingsModal>
-      <CloseButton onClick={closeSettingsModal} />
+      <CloseButton onClick={closeModal} />
       <h2>Settings</h2>
 
       <div className='group'>

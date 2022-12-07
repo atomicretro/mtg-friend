@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
-import { useConfigContext } from '../providers/ConfigProvider';
+import { ModalTypes, useModalContext } from '../providers/ModalProvider';
 import { PlayerProvider } from '../providers/PlayerProvider';
 
 import { Players } from './Players';
@@ -14,12 +14,23 @@ const StyledMain = styled.main`
 `;
 
 export function Main() {
-  const { isLookupModalOpen, isSettingsModalOpen } = useConfigContext();
+  const { whichModal } = useModalContext();
+
+  const maybeRenderModal = () => {
+    switch (whichModal) {
+      case ModalTypes.LOOKUP:
+        return <LookupModal />;
+      case ModalTypes.SETTINGS:
+        return <SettingsModal />;
+      case ModalTypes.NONE:
+        return null;
+    }
+  };
 
   return (
     <StyledMain>
-      { isSettingsModalOpen && <SettingsModal /> }
-      { isLookupModalOpen && <LookupModal /> }
+      { maybeRenderModal() }
+
       <PlayerProvider>
         <Players />
       </PlayerProvider>
