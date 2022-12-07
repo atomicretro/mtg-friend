@@ -5,6 +5,7 @@ import { useModalContext } from '../providers/ModalProvider';
 
 import { Modal } from './Modal';
 import { CloseButton } from './Buttons/CloseButton';
+import { DeleteButton } from './Buttons/DeleteButton';
 
 import { ABILITIES } from '../constants/abilities';
 import { COUNTERS } from '../constants/counters';
@@ -20,21 +21,38 @@ import {
 import { MISC } from '../constants/misc';
 
 const StyledLookupModal = styled(Modal)`
-  .group {
+  .search {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    margin: 0 5px;
+    flex-direction: column;
+    align-items: flex-start;
 
     label {
-      font-size: 18px;
-      user-select: none;
+      margin: 0 0 5px 0;
+    }
+
+    .input-group {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+
+      input {
+        flex-grow: 1;
+        font-size: 18px;
+        border: 1px solid black;
+        border-radius: 8px;
+        padding: 6px;
+      }
     }
   }
 `;
 
-function LookupItem({ id, name }: { id: string, name: string }) {
+interface IMechanic {
+  id: string;
+  name: string;
+}
+
+function LookupItem({ id, name }: IMechanic) {
   return (
     <li key={id}>
       <a href={`https://mtg.fandom.com/wiki/${id}`} rel='noreferrer' target='_blank'>{name}</a>
@@ -42,38 +60,73 @@ function LookupItem({ id, name }: { id: string, name: string }) {
   )
 }
 
+function NullResult() {
+  return <li><span>None</span></li>;
+}
+
 export function LookupModal() {
   const { closeModal } = useModalContext();
+
+  const [searchString, setSearchString] = React.useState('');
+
+  const search = React.useCallback((mechanic: IMechanic) => (
+    mechanic.name.toLowerCase().includes(searchString)
+  ), [searchString]);
+
+  const abilities = React.useMemo(() => ABILITIES.filter(search), [search]);
+  const counters = React.useMemo(() => COUNTERS.filter(search), [search]);
+  const kwActions = React.useMemo(() => KEYWORDS_ACTIONS.filter(search), [search]);
+  const kwActivated = React.useMemo(() => KEYWORDS_ACTIVATED.filter(search), [search]);
+  const kwCharacteristics = React.useMemo(() => KEYWORDS_CHARACTERISTIC.filter(search), [search]);
+  const kwEvasion = React.useMemo(() => KEYWORDS_EVASION.filter(search), [search]);
+  const kwSpell = React.useMemo(() => KEYWORDS_SPELL.filter(search), [search]);
+  const kwStatic = React.useMemo(() => KEYWORDS_STATIC.filter(search), [search]);
+  const kwTriggered = React.useMemo(() => KEYWORDS_TRIGGERED.filter(search), [search]);
+  const misc = React.useMemo(() => MISC.filter(search), [search]);
 
   return (
     <StyledLookupModal>
       <CloseButton onClick={closeModal} />
       <h2>MTG Glossary</h2>
 
+      <div className='search'>
+        <label htmlFor='search_mechanics'>Look up by name:</label>
+        <div className='input-group'>
+          <input
+            id='search_mechanics'
+            onChange={(e) => setSearchString(e.target.value)}
+            type='text'
+            value={searchString}
+          />
+
+          <DeleteButton onClick={() => setSearchString('')} />
+        </div>
+      </div>
+
       <h3>Abilities</h3>
-      <ul>{ABILITIES.map(LookupItem)}</ul>
+      <ul>{abilities.length > 0 ? abilities.map(LookupItem) : <NullResult />}</ul>
 
       <h3>Counters</h3>
-      <ul>{COUNTERS.map(LookupItem)}</ul>
+      <ul>{counters.length > 0 ? counters.map(LookupItem) : <NullResult />}</ul>
 
       <h3>Keywords</h3>
       <h4>Keyword Actions</h4>
-      <ul>{KEYWORDS_ACTIONS.map(LookupItem)}</ul>
+      <ul>{kwActions.length > 0 ? kwActions.map(LookupItem) : <NullResult />}</ul>
       <h4>Activated Keywords</h4>
-      <ul>{KEYWORDS_ACTIVATED.map(LookupItem)}</ul>
+      <ul>{kwActivated.length > 0 ? kwActivated.map(LookupItem) : <NullResult />}</ul>
       <h4>Characteristic Keywords</h4>
-      <ul>{KEYWORDS_CHARACTERISTIC.map(LookupItem)}</ul>
+      <ul>{kwCharacteristics.length > 0 ? kwCharacteristics.map(LookupItem) : <NullResult />}</ul>
       <h4>Evasion Keywords</h4>
-      <ul>{KEYWORDS_EVASION.map(LookupItem)}</ul>
+      <ul>{kwEvasion.length > 0 ? kwEvasion.map(LookupItem) : <NullResult />}</ul>
       <h4>Spell Keywords</h4>
-      <ul>{KEYWORDS_SPELL.map(LookupItem)}</ul>
+      <ul>{kwSpell.length > 0 ? kwSpell.map(LookupItem) : <NullResult />}</ul>
       <h4>Static Keywords</h4>
-      <ul>{KEYWORDS_STATIC.map(LookupItem)}</ul>
+      <ul>{kwStatic.length > 0 ? kwStatic.map(LookupItem) : <NullResult />}</ul>
       <h4>Triggered Keywords</h4>
-      <ul>{KEYWORDS_TRIGGERED.map(LookupItem)}</ul>
+      <ul>{kwTriggered.length > 0 ? kwTriggered.map(LookupItem) : <NullResult />}</ul>
 
       <h3>Misc. Mechanics</h3>
-      <ul>{MISC.map(LookupItem)}</ul>
+      <ul>{misc.length > 0 ? misc.map(LookupItem) : <NullResult />}</ul>
 
     </StyledLookupModal>
   );
