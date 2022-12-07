@@ -23,6 +23,26 @@ import {
 import { MISC } from '../constants/misc';
 
 const StyledLookupModal = styled(Modal)`
+  h3 {
+    margin: 20px 0 8px;
+  }
+  h4 {
+    margin: 20px 0 8px;
+
+    &:first-of-type {
+      margin-top: 0;
+    }
+  }
+
+  ul {
+    line-height: 30px;
+    margin: 0;
+
+    &:last-of-type {
+      padding-bottom: 20px;
+    }
+  }
+
   .search {
     display: flex;
     flex-direction: column;
@@ -51,7 +71,7 @@ const StyledLookupModal = styled(Modal)`
   .jump-to {
     .buttons {
       font-size: 14px;
-      line-height: 22px;
+      line-height: 26px;
     }
   }
 `;
