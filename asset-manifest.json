@@ -1,15 +1,17 @@
 {
   "files": {
-    "main.js": "/mtg-friend/static/js/main.6399ff98.js",
+    "main.js": "/mtg-friend/static/js/main.2bf96b4d.js",
     "static/media/gear.svg": "/mtg-friend/static/media/gear.8f07865276c75121439ddd5c48d0552a.svg",
     "static/media/sun.svg": "/mtg-friend/static/media/sun.d4c4e7f6e9aaa70fdaaf1e870f967701.svg",
     "static/media/magnify.svg": "/mtg-friend/static/media/magnify.9515612fcde1bc6cf6abc836b358e0cd.svg",
     "index.html": "/mtg-friend/index.html",
     "static/media/moon.svg": "/mtg-friend/static/media/moon.4d956c0a87e0ee77f91aa4257c9f096b.svg",
+    "static/media/check.svg": "/mtg-friend/static/media/check.452ea92f108a04804a52aabdcf54eb6c.svg",
+    "static/media/close.svg": "/mtg-friend/static/media/close.87d6232531de0dc6065aa7fb033c30fc.svg",
     "static/media/reset.svg": "/mtg-friend/static/media/reset.5d05951c65c88c12f348468c23423076.svg",
-    "main.6399ff98.js.map": "/mtg-friend/static/js/main.6399ff98.js.map"
+    "main.2bf96b4d.js.map": "/mtg-friend/static/js/main.2bf96b4d.js.map"
   },
   "entrypoints": [
-    "static/js/main.6399ff98.js"
+    "static/js/main.2bf96b4d.js"
   ]
 }
