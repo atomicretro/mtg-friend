@@ -5,11 +5,17 @@ import { RollType } from './Roll';
 import { RolledObject } from './RolledObject';
 import { IChanceOptions } from './Options';
 
-const StyledResults = styled.div`
+const StyledResults = styled.div<{ whichOption: IChanceOptions }>`
   display: flex;
   justify-content: center;
   align-items: center;
   flex-grow: 1;
+
+  @keyframes loading {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
 
   .rolled {
     height: 60%;
@@ -18,16 +24,45 @@ const StyledResults = styled.div`
     align-items: center;
     flex-wrap: wrap;
     gap: 10px;
+
+    .rolling {
+      display: inline-block;
+      transform: translateZ(1px);
+    }
+
+    .rolling > div {
+      display: inline-block;
+      width: 75px;
+      height: 75px;
+      margin: 8px;
+      border-radius: ${({ whichOption }) => whichOption === IChanceOptions.COIN ? '50%' : '8px'};
+      border: 2px solid #000000;
+      background: #ffffff;
+      animation: rolling 2.4s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+    }
+
+    @keyframes rolling {
+      0%, 100% { animation-timing-function: cubic-bezier(0.5, 0, 1, 0.5); }
+      0% { transform: rotateY(0deg); }
+      50% {
+        transform: rotateY(1800deg);
+        animation-timing-function: cubic-bezier(0, 0.5, 0.5, 1);
+      }
+      100% { transform: rotateY(3600deg); }
+    }
   }
+
+  
 `;
 
 interface IResultsProps {
   results: any[];
+  rolling: boolean;
   whichOption: IChanceOptions;
 }
 
 export function Results(props: IResultsProps) {
-  const { results, whichOption } = props;
+  const { results, rolling, whichOption } = props;
 
   const renderResult = (value: number, idx: number) => {
     if (whichOption === IChanceOptions.COIN) {
@@ -39,9 +74,15 @@ export function Results(props: IResultsProps) {
   };
 
   return (
-    <StyledResults>
+    <StyledResults whichOption={whichOption}>
       <div className='rolled'>
-        {results.map(renderResult)}
+        {
+          rolling
+            ? <div className='rolling'>
+                <div/>
+              </div>
+            : results.map(renderResult)
+        }
       </div>
     </StyledResults>
   );

@@ -24,6 +24,7 @@ const StyledSettingsModal = styled(Modal)`
 `;
 
 // SVGs from https://www.svgrepo.com/
+// Loading coin animtion from https://loading.io/css/
 
 export function SettingsModal() {
   const {

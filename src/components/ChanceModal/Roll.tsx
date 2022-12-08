@@ -35,20 +35,26 @@ export function Roll(props: IRollProps) {
   const { whichOption } = props;
 
   const [numToRoll, setNumToRoll] = React.useState(1);
+  const [rolling, setRolling] = React.useState(false);
   const [results, setResults] = React.useState<number[]>([]);
 
   const minRoll = React.useMemo(() => 1, []);
   const maxRoll = React.useMemo(() => optionMap[whichOption], [whichOption]);
 
   const roll = React.useCallback(() => {
-    const resultsArray = [];
+    setRolling(true);
+    const resultsArray: number[] = [];
     for (let idx = 0; idx < numToRoll; idx++) {
       const min = Math.ceil(minRoll);
       const max = Math.floor(maxRoll);
       resultsArray.push(Math.floor(Math.random() * (max - min + 1) + min));
     }
-    setResults(resultsArray);
-  }, [numToRoll, minRoll, maxRoll, setResults]);
+
+    setTimeout(() =>{
+      setResults(resultsArray);
+      setRolling(false)
+    }, 500);
+  }, [numToRoll, minRoll, maxRoll, setResults, setRolling]);
 
   const decrementNum = React.useCallback(() => {
     if (numToRoll > 1) {
@@ -68,6 +74,7 @@ export function Roll(props: IRollProps) {
 
       <Results
         results={results}
+        rolling={rolling}
         whichOption={whichOption}
       />
 
