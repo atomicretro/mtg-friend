@@ -2,6 +2,8 @@ import * as React from 'react';
 import styled from 'styled-components';
 
 import { IChanceOptions } from './Options';
+import { Inputs } from './Inputs';
+import { Results } from './Results';
 
 const StyledRoll = styled.div`
   width: 100%;
@@ -12,6 +14,11 @@ const StyledRoll = styled.div`
 
 interface IRollProps {
   whichOption: IChanceOptions;
+}
+
+export enum RollType {
+  COIN = 'coin',
+  DIE = 'die',
 }
 
 const optionMap = {
@@ -27,32 +34,50 @@ const optionMap = {
 export function Roll(props: IRollProps) {
   const { whichOption } = props;
 
-  const [result, setResult] = React.useState(0);
+  const [numToRoll, setNumToRoll] = React.useState(1);
+  const [results, setResults] = React.useState<number[]>([]);
 
   const minRoll = React.useMemo(() => 1, []);
   const maxRoll = React.useMemo(() => optionMap[whichOption], [whichOption]);
-  const buttonText = React.useMemo(() => (
-    whichOption === IChanceOptions.COIN ? 'Flip!' : 'Roll!'
-  ), [whichOption]);
 
   const roll = React.useCallback(() => {
-    const min = Math.ceil(minRoll);
-    const max = Math.floor(maxRoll);
-    setResult(Math.floor(Math.random() * (max - min + 1) + min));
-  }, [minRoll, maxRoll, setResult]);
-
-  const renderResult = () => {
-    if (whichOption === IChanceOptions.COIN) {
-      return result === 1 ? 'Heads' : 'Tails';
+    const resultsArray = [];
+    for (let idx = 0; idx < numToRoll; idx++) {
+      const min = Math.ceil(minRoll);
+      const max = Math.floor(maxRoll);
+      resultsArray.push(Math.floor(Math.random() * (max - min + 1) + min));
     }
-    return result;
-  };
+    setResults(resultsArray);
+  }, [numToRoll, minRoll, maxRoll, setResults]);
+
+  const decrementNum = React.useCallback(() => {
+    if (numToRoll > 1) {
+      setNumToRoll((prevNum) => prevNum - 1);
+    }
+  }, [numToRoll, setNumToRoll]);
+
+  const incrementNum = React.useCallback(() => {
+    if (numToRoll < 9) {
+      setNumToRoll((prevNum) => prevNum + 1);
+    }
+  }, [numToRoll, setNumToRoll]);
 
   return (
     <StyledRoll>
       <h2>{whichOption}</h2>
-      {renderResult()}
-      <button onClick={roll} type='button'>{buttonText}</button>
+
+      <Results
+        results={results}
+        whichOption={whichOption}
+      />
+
+      <Inputs
+        decrementNum={decrementNum}
+        incrementNum={incrementNum}
+        numToRoll={numToRoll}
+        roll={roll}
+        whichOption={whichOption}
+      />
     </StyledRoll>
   );
 };
