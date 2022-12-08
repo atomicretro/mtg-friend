@@ -17,6 +17,7 @@ interface IRollProps {
 }
 
 export enum RollType {
+  BLANK = '',
   COIN = 'coin',
   DIE = 'die',
 }
@@ -34,12 +35,25 @@ const optionMap = {
 export function Roll(props: IRollProps) {
   const { whichOption } = props;
 
+  const [rollType, setRollType] = React.useState<RollType>(RollType.BLANK);
   const [numToRoll, setNumToRoll] = React.useState(1);
   const [rolling, setRolling] = React.useState(false);
   const [results, setResults] = React.useState<number[]>([]);
 
   const minRoll = React.useMemo(() => 1, []);
   const maxRoll = React.useMemo(() => optionMap[whichOption], [whichOption]);
+
+  React.useEffect(() => {
+    setResults([]);
+  }, [whichOption]);
+
+  React.useEffect(() => {
+    if (whichOption === IChanceOptions.COIN) {
+      setRollType(RollType.COIN);
+    } else {
+      setRollType(RollType.DIE);
+    }
+  }, [whichOption]);
 
   const roll = React.useCallback(() => {
     setRolling(true);
@@ -75,7 +89,7 @@ export function Roll(props: IRollProps) {
       <Results
         results={results}
         rolling={rolling}
-        whichOption={whichOption}
+        rollType={rollType}
       />
 
       <Inputs

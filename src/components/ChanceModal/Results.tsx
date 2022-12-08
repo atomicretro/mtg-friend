@@ -3,9 +3,8 @@ import styled from 'styled-components';
 
 import { RollType } from './Roll';
 import { RolledObject } from './RolledObject';
-import { IChanceOptions } from './Options';
 
-const StyledResults = styled.div<{ whichOption: IChanceOptions }>`
+const StyledResults = styled.div<{ rollType: RollType }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -35,7 +34,7 @@ const StyledResults = styled.div<{ whichOption: IChanceOptions }>`
       width: 75px;
       height: 75px;
       margin: 8px;
-      border-radius: ${({ whichOption }) => whichOption === IChanceOptions.COIN ? '50%' : '8px'};
+      border-radius: ${({ rollType }) => rollType === 'coin' ? '50%' : '8px'};
       border: 2px solid #000000;
       background: #ffffff;
       animation: rolling 2.4s cubic-bezier(0, 0.2, 0.8, 1) infinite;
@@ -58,14 +57,15 @@ const StyledResults = styled.div<{ whichOption: IChanceOptions }>`
 interface IResultsProps {
   results: any[];
   rolling: boolean;
-  whichOption: IChanceOptions;
+  rollType: RollType;
 }
 
 export function Results(props: IResultsProps) {
-  const { results, rolling, whichOption } = props;
+  const { results, rolling, rollType } = props;
+  console.log('results', results);
 
   const renderResult = (value: number, idx: number) => {
-    if (whichOption === IChanceOptions.COIN) {
+    if (rollType === RollType.COIN) {
       const coinValue = value === 1 ? 'Heads' : 'Tails';
       return <RolledObject key={idx} rollType={RollType.COIN} value={coinValue} />;
     } else {
@@ -74,7 +74,7 @@ export function Results(props: IResultsProps) {
   };
 
   return (
-    <StyledResults whichOption={whichOption}>
+    <StyledResults rollType={rollType}>
       <div className='rolled'>
         {
           rolling
