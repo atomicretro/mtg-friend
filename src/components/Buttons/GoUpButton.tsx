@@ -7,7 +7,7 @@ import { ReactComponent as GoUpIcon } from '../../images/up-arrow.svg';
 
 const StyledGoUpButton = styled(ButtonReset)`
   position: fixed;
-  bottom: 20px;
+  bottom: 70px;
   right: 20px;
   height: 40px;
   width: 40px;

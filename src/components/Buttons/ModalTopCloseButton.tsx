@@ -5,7 +5,7 @@ import { ButtonReset } from './ButtonReset';
 
 import { ReactComponent as CloseIcon } from '../../images/close.svg';
 
-const StyledCloseButton = styled(ButtonReset)`
+const StyledModalTopCloseButton = styled(ButtonReset)`
   position: absolute;
   top: 20px;
   right: 20px;
@@ -13,16 +13,16 @@ const StyledCloseButton = styled(ButtonReset)`
   width: 40px;
 `;
 
-interface ICloseButtonProps {
+interface IModalTopCloseButtonProps {
   onClick: () => void;
 }
 
-export function CloseButton(props: ICloseButtonProps) {
+export function ModalTopCloseButton(props: IModalTopCloseButtonProps) {
   const { onClick } = props;
 
   return (
-    <StyledCloseButton onPointerDown={onClick} type='button'>
+    <StyledModalTopCloseButton onPointerDown={onClick} type='button'>
       <CloseIcon />
-    </StyledCloseButton>
+    </StyledModalTopCloseButton>
   )
 };

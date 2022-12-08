@@ -5,7 +5,7 @@ import { useConfigContext } from '../providers/ConfigProvider';
 import { useModalContext } from '../providers/ModalProvider';
 
 import { Modal } from './Modal';
-import { CloseButton } from './Buttons/CloseButton';
+import { ModalTopCloseButton } from './Buttons/ModalTopCloseButton';
 import { CheckBox } from './CheckBox';
 
 const StyledSettingsModal = styled(Modal)`
@@ -34,7 +34,7 @@ export function SettingsModal() {
 
   return (
     <StyledSettingsModal>
-      <CloseButton onClick={closeModal} />
+      <ModalTopCloseButton onClick={closeModal} />
       <h2>Settings</h2>
 
       <div className='group'>

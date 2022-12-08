@@ -6,6 +6,13 @@ import { ButtonReset } from './ButtonReset';
 import { ReactComponent as DeleteIcon } from '../../images/delete.svg';
 
 const StyledDeleteButton = styled(ButtonReset)`
+  display: flex;
+  align-items: center;
+
+  svg {
+    height: 30px;
+    width: 30px;
+  }
 `;
 
 interface IDeleteButtonProps {
