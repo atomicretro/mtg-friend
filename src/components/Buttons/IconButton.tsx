@@ -4,17 +4,13 @@ import styled from 'styled-components';
 import { ButtonReset } from './ButtonReset';
 
 const StyledIconButton = styled(ButtonReset)`
-  height: 75px;
-  width: 75px;
+  height: 60px;
+  width: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
   border: 2px solid #000000;
   border-radius: 50%;
-
-  &:focus {
-    // background: green;
-  }
 
   svg {
     height: 50%;

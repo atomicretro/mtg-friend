@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 export enum ModalTypes {
+  CHANCE = 'chance',
   LOOKUP = 'lookup',
   NONE = '',
   SETTINGS = 'settings',
@@ -8,7 +9,7 @@ export enum ModalTypes {
 
 interface IModalContext {
   closeModal: () => void;
-  openModal: (modalType: ModalTypes.LOOKUP | ModalTypes.SETTINGS) => void;
+  openModal: (modalType: ModalTypes) => void;
   whichModal: ModalTypes;
 }
 
@@ -25,7 +26,7 @@ interface IProps {
 export const ModalProvider = ({ children }: IProps) => {
   const [whichModal, setWhichModal] = React.useState(ModalTypes.NONE);
 
-  const openModal = React.useCallback((modalType: ModalTypes.LOOKUP | ModalTypes.SETTINGS) => {
+  const openModal = React.useCallback((modalType: ModalTypes) => {
     setWhichModal(modalType);
   }, [setWhichModal]);
 

@@ -5,6 +5,7 @@ import { ModalTypes, useModalContext } from '../providers/ModalProvider';
 import { PlayerProvider } from '../providers/PlayerProvider';
 
 import { Players } from './Players';
+import { ChanceModal } from './ChanceModal';
 import { SettingsModal } from './SettingsModal';
 import { LookupModal } from './LookupModal';
 
@@ -18,6 +19,8 @@ export function Main() {
 
   const maybeRenderModal = () => {
     switch (whichModal) {
+      case ModalTypes.CHANCE:
+        return <ChanceModal />;
       case ModalTypes.LOOKUP:
         return <LookupModal />;
       case ModalTypes.SETTINGS:

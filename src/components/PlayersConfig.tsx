@@ -6,6 +6,7 @@ import { usePlayerContext } from '../providers/PlayerProvider';
 
 import { IconButton } from './Buttons/IconButton';
 
+import { ReactComponent as DiceIcon } from '../images/dice.svg';
 import { ReactComponent as GearIcon } from '../images/gear.svg';
 import { ReactComponent as MagnifyIcon } from '../images/magnify.svg';
 import { ReactComponent as MoonIcon } from '../images/moon.svg';
@@ -13,13 +14,10 @@ import { ReactComponent as ResetIcon } from '../images/reset.svg';
 import { ReactComponent as SunIcon } from '../images/sun.svg';
 
 const StyledPlayersConfig = styled.div<{ order: number }>`
-  // display: grid;
-  // grid-template-columns: auto auto;
-  // grid-template-rows: auto auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  // flex-wrap: wrap;
+  flex-wrap: wrap;
   flex-grow: 1;
   order: ${({ order }) => order};
   margin: 0 20px;
@@ -52,6 +50,10 @@ export function PlayersConfig(props: IPlayersConfigProps) {
 
         <IconButton onClick={() => setDayTime((prevDayTime) => !prevDayTime)} className='time'>
           {dayTime ? <SunIcon /> : <MoonIcon />}
+        </IconButton>
+
+        <IconButton onClick={() => openModal(ModalTypes.CHANCE)} className='chance'>
+          <DiceIcon />
         </IconButton>
 
         <IconButton onClick={() => openModal(ModalTypes.LOOKUP)} className='menu'>
