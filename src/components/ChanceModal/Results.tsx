@@ -1,10 +1,15 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
-import { RollType } from './Roll';
+import { useChanceContext } from 'src/providers/ChanceProvider';
+
 import { RolledObject } from './RolledObject';
 
-const StyledResults = styled.div<{ rollType: RollType }>`
+import { rolledObjectImageMap } from './rolledObjectImageMap';
+
+import { IChanceOptions } from 'src/types/IChance';
+
+const StyledResults = styled.div<{ objectType: IChanceOptions }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,28 +20,21 @@ const StyledResults = styled.div<{ rollType: RollType }>`
     100% { opacity: 1; }
   }
 
-
-  .rolled {
-    height: 60%;
+  .results {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
     gap: 10px;
 
-    .rolling {
+    & > .rolling {
       display: inline-block;
-      transform: translateZ(1px);
-    }
-
-    .rolling > div {
-      display: inline-block;
-      width: 75px;
-      height: 75px;
-      margin: 8px;
-      border-radius: ${({ rollType }) => rollType === 'coin' ? '50%' : '8px'};
-      border: 2px solid #000000;
-      background: #ffffff;
+      width: 100px;
+      height: 100px;
+      background-image: url(${({ objectType }) => rolledObjectImageMap[objectType]});
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: cover;
       animation: rolling 2.4s cubic-bezier(0, 0.2, 0.8, 1) infinite;
     }
 
@@ -50,38 +48,36 @@ const StyledResults = styled.div<{ rollType: RollType }>`
       100% { transform: rotateY(3600deg); }
     }
   }
-
-  
 `;
 
 interface IResultsProps {
-  results: any[];
+  numToRoll: number;
+  results: (number | 'Heads' | 'Tails')[];
   rolling: boolean;
-  rollType: RollType;
+}
+
+function range(size: number): ReadonlyArray<number> {
+  const array = [];
+  for (let idx = 0; idx < size; idx++) {
+    array.push(idx);
+  }
+  return array;
 }
 
 export function Results(props: IResultsProps) {
-  const { results, rolling, rollType } = props;
+  const { whichChanceOption } = useChanceContext();
+  const { numToRoll, results, rolling } = props;
   console.log('results', results);
 
-  const renderResult = (value: number, idx: number) => {
-    if (rollType === RollType.COIN) {
-      const coinValue = value === 1 ? 'Heads' : 'Tails';
-      return <RolledObject key={idx} rollType={RollType.COIN} value={coinValue} />;
-    } else {
-      return <RolledObject key={idx} rollType={RollType.DIE} value={value} />;
-    }
-  };
-
   return (
-    <StyledResults rollType={rollType}>
-      <div className='rolled'>
+    <StyledResults objectType={whichChanceOption}>
+      <div className='results'>
         {
           rolling
-            ? <div className='rolling'>
-                <div/>
-              </div>
-            : results.map(renderResult)
+            ? range(numToRoll).map((el: number) => <div className='rolling' key={el} />)
+            : results.map((value: number | 'Heads' | 'Tails', idx: number) => (
+                <RolledObject key={idx} value={value} />
+              ))
         }
       </div>
     </StyledResults>

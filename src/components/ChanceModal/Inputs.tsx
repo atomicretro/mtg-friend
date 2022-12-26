@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { RollButton } from '../Buttons/RollButton';
 import { SmallCrementButton } from '../Buttons/SmallCrementButton';
 
-import { IChanceOptions } from './Options';
+import { IChanceOptions } from 'src/types/IChance';
 
 const StyledInputs = styled.div`
   display: flex;

@@ -1,11 +1,11 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
+import { ChanceProvider } from '../providers/ChanceProvider';
 import { ModalTypes, useModalContext } from '../providers/ModalProvider';
 import { PlayerProvider } from '../providers/PlayerProvider';
 
 import { Players } from './Players';
-import { ChanceModal } from './ChanceModal';
 import { SettingsModal } from './SettingsModal';
 import { LookupModal } from './LookupModal';
 
@@ -20,7 +20,7 @@ export function Main() {
   const maybeRenderModal = () => {
     switch (whichModal) {
       case ModalTypes.CHANCE:
-        return <ChanceModal />;
+        return <ChanceProvider />;
       case ModalTypes.LOOKUP:
         return <LookupModal />;
       case ModalTypes.SETTINGS:

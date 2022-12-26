@@ -1,8 +1,8 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
-import { ReactComponent as CheckIcon } from '../images/check.svg';
-import { ReactComponent as CloseIcon } from '../images/close.svg';
+import { ReactComponent as CheckIcon } from 'src/images/check.svg';
+import { ReactComponent as CloseIcon } from 'src/images/close.svg';
 
 const StyledCheckBox = styled.div`
   position: relative;

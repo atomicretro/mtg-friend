@@ -1,29 +1,35 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
-import { RollType } from './Roll';
+import { useChanceContext } from 'src/providers/ChanceProvider';
 
-const StyledRolledObject = styled.div<{ rollType: RollType }>`
-  height: 75px;
-  width: 75px;
+import { rolledObjectImageMap } from './rolledObjectImageMap';
+
+import { IChanceOptions } from 'src/types/IChance';
+
+const StyledRolledObject = styled.div<{ objectType: IChanceOptions }>`
+  height: 100px;
+  width: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 2px solid #000000;
-  border-radius: ${({ rollType }) => rollType === RollType.COIN ? '50%' : '8px'};
+  background-image: url(${({ objectType }) => rolledObjectImageMap[objectType]});
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  stroke-width: 5px;
 `;
 
 interface IRolledObjectProps {
-  rollType: RollType;
   value: number | 'Heads' | 'Tails';
 }
 
 export function RolledObject(props: IRolledObjectProps) {
-  const { rollType, value } = props;
-
+  const { whichChanceOption } = useChanceContext();
+  const { value } = props;
 
   return (
-    <StyledRolledObject rollType={rollType}>
+    <StyledRolledObject objectType={whichChanceOption}>
       {value}
     </StyledRolledObject>
   );

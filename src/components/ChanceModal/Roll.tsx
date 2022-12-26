@@ -1,9 +1,11 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
-import { IChanceOptions } from './Options';
+import { useChanceContext } from 'src/providers/ChanceProvider';
 import { Inputs } from './Inputs';
 import { Results } from './Results';
+
+import { IChanceOptions } from 'src/types/IChance';
 
 const StyledRoll = styled.div`
   width: 100%;
@@ -12,17 +14,7 @@ const StyledRoll = styled.div`
   padding: 20px;
 `;
 
-interface IRollProps {
-  whichOption: IChanceOptions;
-}
-
-export enum RollType {
-  BLANK = '',
-  COIN = 'coin',
-  DIE = 'die',
-}
-
-const optionMap = {
+const maxRollMap = {
   [IChanceOptions.COIN]: 2,
   [IChanceOptions.D4]: 4,
   [IChanceOptions.D6]: 6,
@@ -32,43 +24,39 @@ const optionMap = {
   [IChanceOptions.D20]: 20,
 };
 
-export function Roll(props: IRollProps) {
-  const { whichOption } = props;
+export function Roll() {
+  const { whichChanceOption } = useChanceContext();
 
-  const [rollType, setRollType] = React.useState<RollType>(RollType.BLANK);
   const [numToRoll, setNumToRoll] = React.useState(1);
   const [rolling, setRolling] = React.useState(false);
-  const [results, setResults] = React.useState<number[]>([]);
+  const [results, setResults] = React.useState<(number | 'Heads' | 'Tails')[]>([]);
 
   const minRoll = React.useMemo(() => 1, []);
-  const maxRoll = React.useMemo(() => optionMap[whichOption], [whichOption]);
+  const maxRoll = React.useMemo(() => maxRollMap[whichChanceOption], [whichChanceOption]);
 
   React.useEffect(() => {
     setResults([]);
-  }, [whichOption]);
-
-  React.useEffect(() => {
-    if (whichOption === IChanceOptions.COIN) {
-      setRollType(RollType.COIN);
-    } else {
-      setRollType(RollType.DIE);
-    }
-  }, [whichOption]);
+  }, [whichChanceOption]);
 
   const roll = React.useCallback(() => {
     setRolling(true);
-    const resultsArray: number[] = [];
+    const resultsArray: (number | 'Heads' | 'Tails')[] = [];
     for (let idx = 0; idx < numToRoll; idx++) {
       const min = Math.ceil(minRoll);
       const max = Math.floor(maxRoll);
-      resultsArray.push(Math.floor(Math.random() * (max - min + 1) + min));
+      const theResult = Math.floor(Math.random() * (max - min + 1) + min);
+      if (whichChanceOption === IChanceOptions.COIN) {
+        resultsArray.push(theResult === 1 ? 'Heads' : 'Tails');
+      } else {
+        resultsArray.push(theResult);
+      }
     }
 
     setTimeout(() =>{
       setResults(resultsArray);
       setRolling(false)
     }, 500);
-  }, [numToRoll, minRoll, maxRoll, setResults, setRolling]);
+  }, [whichChanceOption, numToRoll, minRoll, maxRoll, setResults, setRolling]);
 
   const decrementNum = React.useCallback(() => {
     if (numToRoll > 1) {
@@ -84,12 +72,12 @@ export function Roll(props: IRollProps) {
 
   return (
     <StyledRoll>
-      <h2>{whichOption}</h2>
+      <h2>{whichChanceOption}</h2>
 
       <Results
+        numToRoll={numToRoll}
         results={results}
         rolling={rolling}
-        rollType={rollType}
       />
 
       <Inputs
@@ -97,7 +85,7 @@ export function Roll(props: IRollProps) {
         incrementNum={incrementNum}
         numToRoll={numToRoll}
         roll={roll}
-        whichOption={whichOption}
+        whichOption={whichChanceOption}
       />
     </StyledRoll>
   );
