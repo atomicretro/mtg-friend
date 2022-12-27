@@ -7,9 +7,9 @@ import { RolledObject } from './RolledObject';
 
 import { rolledObjectImageMap } from './rolledObjectImageMap';
 
-import { IChanceOptions } from 'src/types/IChance';
+import { EChanceOptions, TRolledObject } from 'src/types/IChance';
 
-const StyledResults = styled.div<{ objectType: IChanceOptions }>`
+const StyledResults = styled.div<{ objectType: EChanceOptions }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -29,12 +29,13 @@ const StyledResults = styled.div<{ objectType: IChanceOptions }>`
 
     & > .rolling {
       display: inline-block;
-      width: 100px;
-      height: 100px;
+      height: 40px; // 1/2 the height of the final rolled object
+      width: 40px; // 1/2 the height of the final rolled object
       background-image: url(${({ objectType }) => rolledObjectImageMap[objectType]});
       background-repeat: no-repeat;
       background-position: center center;
       background-size: cover;
+      margin: 10px 20px;
       animation: rolling 2.4s cubic-bezier(0, 0.2, 0.8, 1) infinite;
     }
 
@@ -52,7 +53,7 @@ const StyledResults = styled.div<{ objectType: IChanceOptions }>`
 
 interface IResultsProps {
   numToRoll: number;
-  results: (number | 'Heads' | 'Tails')[];
+  results: TRolledObject[];
   rolling: boolean;
 }
 
@@ -67,7 +68,6 @@ function range(size: number): ReadonlyArray<number> {
 export function Results(props: IResultsProps) {
   const { whichChanceOption } = useChanceContext();
   const { numToRoll, results, rolling } = props;
-  console.log('results', results);
 
   return (
     <StyledResults objectType={whichChanceOption}>
@@ -75,7 +75,7 @@ export function Results(props: IResultsProps) {
         {
           rolling
             ? range(numToRoll).map((el: number) => <div className='rolling' key={el} />)
-            : results.map((value: number | 'Heads' | 'Tails', idx: number) => (
+            : results.map((value: TRolledObject, idx: number) => (
                 <RolledObject key={idx} value={value} />
               ))
         }

@@ -5,11 +5,11 @@ import { useChanceContext } from 'src/providers/ChanceProvider';
 
 import { rolledObjectImageMap } from './rolledObjectImageMap';
 
-import { IChanceOptions } from 'src/types/IChance';
+import { EChanceOptions, TRolledObject } from 'src/types/IChance';
 
-const StyledRolledObject = styled.div<{ objectType: IChanceOptions }>`
-  height: 100px;
-  width: 100px;
+const StyledRolledObject = styled.div<{ objectType: EChanceOptions }>`
+  height: 80px;
+  width: 80px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -17,11 +17,11 @@ const StyledRolledObject = styled.div<{ objectType: IChanceOptions }>`
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
-  stroke-width: 5px;
+  margin: 10px 0;
 `;
 
 interface IRolledObjectProps {
-  value: number | 'Heads' | 'Tails';
+  value: TRolledObject;
 }
 
 export function RolledObject(props: IRolledObjectProps) {

@@ -5,7 +5,7 @@ import { useChanceContext } from 'src/providers/ChanceProvider';
 
 import { ChanceOptionsButton } from 'src/components/Buttons/ChanceOptionsButton';
 
-import { IChanceOptions } from 'src/types/IChance';
+import { EChanceOptions } from 'src/types/IChance';
 
 const StyledOptions = styled.div`
   height: 100%;
@@ -19,7 +19,7 @@ export function Options() {
   return (
     <StyledOptions>
       {
-        Object.values(IChanceOptions).map((val) => (
+        Object.values(EChanceOptions).map((val) => (
           <ChanceOptionsButton
             key={val}
             onClick={() => setWhichChanceOption(val)}

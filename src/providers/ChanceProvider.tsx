@@ -2,20 +2,20 @@ import * as React from 'react';
 
 import { ChanceModal } from '../components/ChanceModal';
 
-import { IChanceOptions } from 'src/types/IChance';
+import { EChanceOptions } from 'src/types/IChance';
 
 interface IChanceContext {
-  whichChanceOption: IChanceOptions;
-  setWhichChanceOption: (option: IChanceOptions) => void;
+  whichChanceOption: EChanceOptions;
+  setWhichChanceOption: (option: EChanceOptions) => void;
 }
 
 const ChanceContext = React.createContext<IChanceContext>({
   setWhichChanceOption: () => {},
-  whichChanceOption: IChanceOptions.COIN,
+  whichChanceOption: EChanceOptions.COIN,
 });
 
 export const ChanceProvider = () => {
-  const [whichChanceOption, setWhichChanceOption] = React.useState(IChanceOptions.COIN);
+  const [whichChanceOption, setWhichChanceOption] = React.useState(EChanceOptions.COIN);
   
   const value = {
     setWhichChanceOption,

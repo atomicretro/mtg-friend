@@ -5,14 +5,14 @@ import D8 from 'src/images/d8.svg';
 import D12 from 'src/images/d12.svg';
 import D20 from 'src/images/d20.svg';
 
-import { IChanceOptions } from 'src/types/IChance';
+import { EChanceOptions } from 'src/types/IChance';
 
 export const rolledObjectImageMap = {
-  [IChanceOptions.COIN]: Coin,
-  [IChanceOptions.D4]: D4,
-  [IChanceOptions.D6]: D6,
-  [IChanceOptions.D8]: D8,
-  [IChanceOptions.D10]: D8,
-  [IChanceOptions.D12]: D12,
-  [IChanceOptions.D20]: D20,
+  [EChanceOptions.COIN]: Coin,
+  [EChanceOptions.D4]: D4,
+  [EChanceOptions.D6]: D6,
+  [EChanceOptions.D8]: D8,
+  [EChanceOptions.D10]: D8,
+  [EChanceOptions.D12]: D12,
+  [EChanceOptions.D20]: D20,
 };

@@ -1,4 +1,4 @@
-export enum IChanceOptions {
+export enum EChanceOptions {
   COIN = 'coin',
   D4 = 'd4',
   D6 = 'd6',
@@ -7,3 +7,5 @@ export enum IChanceOptions {
   D12 = 'd12',
   D20 = 'd20',
 }
+
+export type TRolledObject = number | 'Heads' | 'Tails';

@@ -4,13 +4,14 @@ import styled from 'styled-components';
 import { RollButton } from '../Buttons/RollButton';
 import { SmallCrementButton } from '../Buttons/SmallCrementButton';
 
-import { IChanceOptions } from 'src/types/IChance';
+import { EChanceOptions } from 'src/types/IChance';
 
 const StyledInputs = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  
+  padding: 0 10px 10px 10px;
+
   .number-of {
     width: 100%;
     display: flex;
@@ -26,7 +27,7 @@ interface IInputsProps {
   incrementNum: () => void;
   numToRoll: number;
   roll: () => void;
-  whichOption: IChanceOptions;
+  whichOption: EChanceOptions;
 }
 
 export function Inputs(props: IInputsProps) {
@@ -39,12 +40,12 @@ export function Inputs(props: IInputsProps) {
   } = props;
 
   const buttonText = React.useMemo(() => (
-    whichOption === IChanceOptions.COIN ? 'Flip!' : 'Roll!'
+    whichOption === EChanceOptions.COIN ? 'Flip!' : 'Roll!'
   ), [whichOption]);
 
   const renderNumToRoll = () => {
     let object = '';
-    if (whichOption === IChanceOptions.COIN) {
+    if (whichOption === EChanceOptions.COIN) {
       object = numToRoll === 1 ? 'coin' : 'coins';
     } else {
       object = numToRoll === 1 ? 'die' : 'dice';

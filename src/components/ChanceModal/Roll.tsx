@@ -5,7 +5,7 @@ import { useChanceContext } from 'src/providers/ChanceProvider';
 import { Inputs } from './Inputs';
 import { Results } from './Results';
 
-import { IChanceOptions } from 'src/types/IChance';
+import { EChanceOptions, TRolledObject } from 'src/types/IChance';
 
 const StyledRoll = styled.div`
   width: 100%;
@@ -15,21 +15,21 @@ const StyledRoll = styled.div`
 `;
 
 const maxRollMap = {
-  [IChanceOptions.COIN]: 2,
-  [IChanceOptions.D4]: 4,
-  [IChanceOptions.D6]: 6,
-  [IChanceOptions.D8]: 8,
-  [IChanceOptions.D10]: 10,
-  [IChanceOptions.D12]: 12,
-  [IChanceOptions.D20]: 20,
+  [EChanceOptions.COIN]: 2,
+  [EChanceOptions.D4]: 4,
+  [EChanceOptions.D6]: 6,
+  [EChanceOptions.D8]: 8,
+  [EChanceOptions.D10]: 10,
+  [EChanceOptions.D12]: 12,
+  [EChanceOptions.D20]: 20,
 };
 
 export function Roll() {
   const { whichChanceOption } = useChanceContext();
 
-  const [numToRoll, setNumToRoll] = React.useState(1);
+  const [numToRoll, setNumToRoll] = React.useState(9);
   const [rolling, setRolling] = React.useState(false);
-  const [results, setResults] = React.useState<(number | 'Heads' | 'Tails')[]>([]);
+  const [results, setResults] = React.useState<TRolledObject[]>([]);
 
   const minRoll = React.useMemo(() => 1, []);
   const maxRoll = React.useMemo(() => maxRollMap[whichChanceOption], [whichChanceOption]);
@@ -40,12 +40,12 @@ export function Roll() {
 
   const roll = React.useCallback(() => {
     setRolling(true);
-    const resultsArray: (number | 'Heads' | 'Tails')[] = [];
+    const resultsArray: TRolledObject[] = [];
     for (let idx = 0; idx < numToRoll; idx++) {
       const min = Math.ceil(minRoll);
       const max = Math.floor(maxRoll);
       const theResult = Math.floor(Math.random() * (max - min + 1) + min);
-      if (whichChanceOption === IChanceOptions.COIN) {
+      if (whichChanceOption === EChanceOptions.COIN) {
         resultsArray.push(theResult === 1 ? 'Heads' : 'Tails');
       } else {
         resultsArray.push(theResult);
