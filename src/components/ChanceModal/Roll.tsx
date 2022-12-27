@@ -27,7 +27,7 @@ const maxRollMap = {
 export function Roll() {
   const { whichChanceOption } = useChanceContext();
 
-  const [numToRoll, setNumToRoll] = React.useState(9);
+  const [numToRoll, setNumToRoll] = React.useState(1);
   const [rolling, setRolling] = React.useState(false);
   const [results, setResults] = React.useState<TRolledObject[]>([]);
 

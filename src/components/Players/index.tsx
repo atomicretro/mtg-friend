@@ -1,17 +1,18 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
-import { useConfigContext } from '../providers/ConfigProvider';
-import { usePlayerContext } from '../providers/PlayerProvider';
+import { useConfigContext } from 'src/providers/ConfigProvider';
+import { usePlayerContext } from 'src/providers/PlayerProvider';
 
 import { LifeCounter } from './LifeCounter';
-import { PlayersConfig } from './PlayersConfig';
+import { QuickConfig } from './QuickConfig';
 
 const StyledPlayers = styled.ul`
   height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
+  gap: 10px;
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -46,7 +47,7 @@ export function Players() {
   return (
     <StyledPlayers>
       {lifeCounters}
-      <PlayersConfig order={totalPlayers > 2 ? totalPlayers : 2} />
+      <QuickConfig order={totalPlayers > 2 ? totalPlayers : 2} />
     </StyledPlayers>
   );
 };

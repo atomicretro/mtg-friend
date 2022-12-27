@@ -1,19 +1,19 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
-import { ModalTypes, useModalContext } from '../providers/ModalProvider';
-import { usePlayerContext } from '../providers/PlayerProvider';
+import { ModalTypes, useModalContext } from 'src/providers/ModalProvider';
+import { usePlayerContext } from 'src/providers/PlayerProvider';
 
-import { IconButton } from './Buttons/IconButton';
+import { IconButton } from 'src/components/Buttons/IconButton';
 
-import { ReactComponent as DiceIcon } from '../images/dice.svg';
-import { ReactComponent as GearIcon } from '../images/gear.svg';
-import { ReactComponent as MagnifyIcon } from '../images/magnify.svg';
-import { ReactComponent as MoonIcon } from '../images/moon.svg';
-import { ReactComponent as ResetIcon } from '../images/reset.svg';
-import { ReactComponent as SunIcon } from '../images/sun.svg';
+import { ReactComponent as DiceIcon } from 'src/images/dice.svg';
+import { ReactComponent as GearIcon } from 'src/images/gear.svg';
+import { ReactComponent as MagnifyIcon } from 'src/images/magnify.svg';
+import { ReactComponent as MoonIcon } from 'src/images/moon.svg';
+import { ReactComponent as ResetIcon } from 'src/images/reset.svg';
+import { ReactComponent as SunIcon } from 'src/images/sun.svg';
 
-const StyledPlayersConfig = styled.div<{ order: number }>`
+const StyledQuickConfig = styled.li<{ order: number }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -31,11 +31,11 @@ const StyledPlayersConfig = styled.div<{ order: number }>`
   }
 `;
 
-interface IPlayersConfigProps {
+interface IQuickConfigProps {
   order: number;
 }
 
-export function PlayersConfig(props: IPlayersConfigProps) {
+export function QuickConfig(props: IQuickConfigProps) {
   const { order } = props;
   const { openModal } = useModalContext();
   const { resetAllLifeTotals } = usePlayerContext();
@@ -43,7 +43,7 @@ export function PlayersConfig(props: IPlayersConfigProps) {
   const [dayTime, setDayTime] = React.useState(true);
 
   return (
-    <StyledPlayersConfig order={order}>
+    <StyledQuickConfig order={order}>
         <IconButton onClick={resetAllLifeTotals} className='reset'>
           <ResetIcon />
         </IconButton>
@@ -63,6 +63,6 @@ export function PlayersConfig(props: IPlayersConfigProps) {
         <IconButton onClick={() => openModal(ModalTypes.SETTINGS)} className='settings'>
           <GearIcon />
         </IconButton>
-    </StyledPlayersConfig>
+    </StyledQuickConfig>
   );
 };

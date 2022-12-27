@@ -1,17 +1,18 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
-import { ChanceProvider } from '../providers/ChanceProvider';
-import { ModalTypes, useModalContext } from '../providers/ModalProvider';
-import { PlayerProvider } from '../providers/PlayerProvider';
+import { ChanceProvider } from 'src/providers/ChanceProvider';
+import { ModalTypes, useModalContext } from 'src/providers/ModalProvider';
 
 import { Players } from './Players';
 import { SettingsModal } from './SettingsModal';
 import { LookupModal } from './LookupModal';
 
 const StyledMain = styled.main`
+  box-sizing: border-box;
   position: relative;
   height: 100vh;
+  padding: 10px;
 `;
 
 export function Main() {
@@ -26,6 +27,7 @@ export function Main() {
       case ModalTypes.SETTINGS:
         return <SettingsModal />;
       case ModalTypes.NONE:
+      default:
         return null;
     }
   };
@@ -33,10 +35,7 @@ export function Main() {
   return (
     <StyledMain>
       { maybeRenderModal() }
-
-      <PlayerProvider>
-        <Players />
-      </PlayerProvider>
+      <Players />
     </StyledMain>
   );
 };

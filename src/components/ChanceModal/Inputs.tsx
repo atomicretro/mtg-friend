@@ -2,7 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 
 import { RollButton } from '../Buttons/RollButton';
-import { SmallCrementButton } from '../Buttons/SmallCrementButton';
+import { CrementButton } from '../Buttons/CrementButton';
 
 import { EChanceOptions } from 'src/types/IChance';
 
@@ -60,9 +60,9 @@ export function Inputs(props: IInputsProps) {
       </RollButton>
 
       <div className='number-of'>
-        <SmallCrementButton type='decrement' onClick={decrementNum} />
+        <CrementButton onClick={decrementNum} size='small' type='decrement' />
         <span>{renderNumToRoll()}</span>
-        <SmallCrementButton type='increment' onClick={incrementNum} />
+        <CrementButton onClick={incrementNum} size='small' type='increment' />
       </div>
     </StyledInputs>
   );

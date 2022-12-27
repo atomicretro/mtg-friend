@@ -3,13 +3,18 @@ import styled from 'styled-components';
 
 import { ButtonReset } from './ButtonReset';
 
-const StyledLifeButton = styled(ButtonReset)`
+const StyledLifeButton = styled(ButtonReset)<{ numPlayers: number }>`
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-grow: 2;
-  font-size: 30px;
+  font-size: ${({ numPlayers }) => {
+    if (2 <= numPlayers && numPlayers <= 5) { return '30px'; }
+    if (numPlayers === 6) { return '25px'; }
+    if (7 <= numPlayers && numPlayers <= 8) { return '20px'; }
+    if (numPlayers === 9) { return '18px'; }
+  }};
 
   &.increment {
     background: #e6f2e6;
@@ -27,16 +32,17 @@ const StyledLifeButton = styled(ButtonReset)`
 `;
 
 interface ILifeButtonProps {
-  type: 'decrement' | 'increment';
+  numPlayers: number;
   onClick: () => void;
+  type: 'decrement' | 'increment';
 }
 
 export function LifeButton(props: ILifeButtonProps) {
-  const { onClick, type } = props;
+  const { numPlayers, onClick, type } = props;
   const buttonText = React.useMemo(() => type === 'decrement' ? '-1' : '+1', [type]);
 
   return (
-    <StyledLifeButton className={type} onPointerDown={onClick} type='button'>
+    <StyledLifeButton className={type} numPlayers={numPlayers} onPointerDown={onClick} type='button'>
       {buttonText}
     </StyledLifeButton>
   )

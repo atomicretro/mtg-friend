@@ -2,10 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createGlobalStyle } from 'styled-components';
 
-import { ConfigProvider } from './providers/ConfigProvider';
-import { ModalProvider } from './providers/ModalProvider';
+import { ConfigProvider } from 'src/providers/ConfigProvider';
+import { ModalProvider } from 'src/providers/ModalProvider';
+import { PlayerProvider } from 'src/providers/PlayerProvider';
 
-import { Main } from './components/Main';
+import { Main } from 'src/components/Main';
 
 const GlobalStyles = createGlobalStyle`
   body {
@@ -19,8 +20,10 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <ConfigProvider>
     <ModalProvider>
-      <GlobalStyles />
-      <Main />
+      <PlayerProvider>
+        <GlobalStyles />
+        <Main />
+      </PlayerProvider>
     </ModalProvider>
   </ConfigProvider>
 );
