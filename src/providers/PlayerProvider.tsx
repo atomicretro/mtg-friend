@@ -1,11 +1,29 @@
 import * as React from 'react';
 
+type TPlayer = {
+  name: string;
+  life: number;
+};
+
+const generatePlayer = (idx: number): TPlayer => ({
+  name: `Player ${idx}`,
+  life: 20,
+});
+
+const generateInitialPlayers = (): TPlayer[] => {
+  const players = [];
+  for (let idx = 1; idx < 10; idx++) {
+    players.push(generatePlayer(idx));
+  }
+  return players;
+};
+
 interface IPlayerContext {
   addPlayer: () => void;
   decrementLifeTotal: (idx: number) => void;
   incrementLifeTotal: (idx: number) => void;
   numberOfPlayers: number;
-  players: number[];
+  players: TPlayer[];
   removePlayer: () => void;
   resetAllLifeTotals: () => void;
 }
@@ -26,54 +44,56 @@ interface IProps {
 
 const getInitialState = <T extends unknown>(property: string, defaultValue: T): T => {
   const data = localStorage.getItem(property);
-  return data ? JSON.parse(data) : defaultValue;
+  if (data === null) {
+    localStorage.setItem(property, JSON.stringify(defaultValue));
+    return defaultValue;
+  }
+  return JSON.parse(data);
 };
 
 export const PlayerProvider = ({ children }: IProps) => {
-  const [players, setPlayers] = React.useState(getInitialState<number[]>('players', [20, 20]));
-
-  const setPlayersState = (players: number[]) => {
-    localStorage.setItem('players', JSON.stringify(players));
-    setPlayers(players);
-  };
-
-  React.useEffect(() => { setPlayersState(players); }, [players]);
-
-  const numberOfPlayers = React.useMemo(() => players.length, [players.length]);
+  const [players, setPlayers] = React.useState(getInitialState<TPlayer[]>('allPlayers', generateInitialPlayers()));
+  const [numPlayers, setNumPlayers] = React.useState(getInitialState<number>('numPlayers', 2));
 
   const addPlayer = () => {
-    if (numberOfPlayers < 9) {
-      setPlayersState(players.concat([20]));
+    if (numPlayers < 9) {
+      localStorage.setItem('numPlayers', JSON.stringify(numPlayers + 1));
+      setNumPlayers(numPlayers + 1);
     }
   };
 
   const removePlayer = () => {
-    if (numberOfPlayers > 2) {
-      setPlayersState(players.slice(0, -1));
+    if (numPlayers > 2) {
+      localStorage.setItem('numPlayers', JSON.stringify(numPlayers - 1));
+      setNumPlayers(numPlayers - 1);
     }
   };
 
   const incrementLifeTotal = (idx: number) => {
     const nextPlayers = [...players];
-    nextPlayers[idx] += 1;
-    setPlayersState(nextPlayers);
+    nextPlayers[idx].life += 1;
+    localStorage.setItem('allPlayers', JSON.stringify(nextPlayers));
+    setPlayers(nextPlayers);
   };
 
   const decrementLifeTotal = (idx: number) => {
     const nextPlayers = [...players];
-    nextPlayers[idx] -= 1;
-    setPlayersState(nextPlayers);
+    nextPlayers[idx].life -= 1;
+    localStorage.setItem('allPlayers', JSON.stringify(nextPlayers));
+    setPlayers(nextPlayers);
   };
-
+  
   const resetAllLifeTotals = () => {
-    setPlayersState(players.map(() => 20));
+    const nextPlayers = players.map((player: TPlayer) => ({ ...player, life: 20}))
+    localStorage.setItem('allPlayers', JSON.stringify(nextPlayers));
+    setPlayers(nextPlayers);
   };
 
   const value = {
     addPlayer,
     decrementLifeTotal,
     incrementLifeTotal,
-    numberOfPlayers,
+    numberOfPlayers: numPlayers,
     players,
     removePlayer,
     resetAllLifeTotals,

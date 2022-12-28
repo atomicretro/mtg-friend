@@ -20,34 +20,36 @@ const StyledPlayers = styled.ul`
 
 export function Players() {
   const { p1Flipped } = useConfigContext();
-  const { players } = usePlayerContext();
+  const { numberOfPlayers, players } = usePlayerContext();
 
-  const totalPlayers = React.useMemo(() => players.length, [players]);
-  const lifeCounters = React.useMemo(() => (
-    players.map((player, idx) => {
+  const lifeCounters = React.useMemo(() => {
+    const counters = [];
+    for (let idx = 0; idx < numberOfPlayers; idx++) {
       let order;
-      if (totalPlayers > 2 || (totalPlayers === 2 && idx === 0)) {
+      if (numberOfPlayers > 2 || (numberOfPlayers === 2 && idx === 0)) {
         order = idx + 1;
       } else {
         order = 3;
       }
 
-      return (
+      counters.push(
         <LifeCounter
           flipped={idx === 0 && p1Flipped}
           idx={idx}
           key={idx}
-          lifeTotal={player}
+          lifeTotal={players[idx].life}
           order={order}
         />
       );
-    })
-  ), [p1Flipped, players, totalPlayers]);
+    }
+
+    return counters;
+  }, [numberOfPlayers, p1Flipped, players]);
 
   return (
     <StyledPlayers>
       {lifeCounters}
-      <QuickConfig order={totalPlayers > 2 ? totalPlayers : 2} />
+      <QuickConfig order={numberOfPlayers > 2 ? numberOfPlayers + 1 : 2} />
     </StyledPlayers>
   );
 };
