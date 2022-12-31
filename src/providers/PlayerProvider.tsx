@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-type TPlayer = {
+export type TPlayer = {
   name: string;
   life: number;
 };

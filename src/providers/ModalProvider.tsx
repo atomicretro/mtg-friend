@@ -3,6 +3,7 @@ import * as React from 'react';
 export enum ModalTypes {
   CHANCE = 'chance',
   LOOKUP = 'lookup',
+  NAME_CHANGE = 'nameChange',
   NONE = '',
   SETTINGS = 'settings',
 }

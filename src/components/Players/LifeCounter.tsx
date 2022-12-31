@@ -1,8 +1,10 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
-import { usePlayerContext } from 'src/providers/PlayerProvider';
+import { TPlayer, usePlayerContext } from 'src/providers/PlayerProvider';
+import { ModalTypes, useModalContext } from 'src/providers/ModalProvider';
 
+import { ButtonReset } from '../Buttons/ButtonReset';
 import { LifeButton } from 'src/components/Buttons/LifeButton';
 
 const StyledLifeCounter = styled.li<{ flipped?: boolean, numPlayers: number, order: number }>`
@@ -58,20 +60,21 @@ const StyledLifeCounter = styled.li<{ flipped?: boolean, numPlayers: number, ord
 interface ILifeCounterProps {
   flipped?: boolean;
   idx: number;
-  lifeTotal: number;
   order: number;
+  player: TPlayer;
 }
 
 export function LifeCounter(props: ILifeCounterProps) {
-  const { flipped, idx, lifeTotal, order } = props;
+  const { flipped, idx, order, player } = props;
   const { decrementLifeTotal, numberOfPlayers, incrementLifeTotal } = usePlayerContext();
+  const { openModal } = useModalContext();
 
   return (
     <StyledLifeCounter flipped={flipped} numPlayers={numberOfPlayers} order={order}>
       <LifeButton numPlayers={numberOfPlayers} onClick={() => decrementLifeTotal(idx)} type='decrement' />
       <div className='player-info'>
-        <span className='life'>{lifeTotal}</span>
-        <span className='name'>Player {idx + 1}</span>
+        <span className='life'>{player.life}</span>
+        <ButtonReset className='name' onClick={() => openModal(ModalTypes.NAME_CHANGE)}>{player.name}</ButtonReset>
       </div>
       <LifeButton numPlayers={numberOfPlayers} onClick={() => incrementLifeTotal(idx)} type='increment' />
     </StyledLifeCounter>

@@ -6,10 +6,10 @@ import { usePlayerContext } from 'src/providers/PlayerProvider';
 import { useModalContext } from 'src/providers/ModalProvider';
 
 import { ModalTopCloseButton } from 'src/components/Buttons/ModalTopCloseButton';
-import { CrementButton } from './Buttons/CrementButton';
+import { CrementButton } from 'src/components/Buttons/CrementButton';
 
-import { Modal } from './Modal';
-import { CheckBox } from './CheckBox';
+import { Modal } from 'src/components/Modal';
+import { CheckBox } from 'src/components/Inputs/CheckBox';
 
 const StyledSettingsModal = styled(Modal)`
   .group {

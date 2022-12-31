@@ -37,8 +37,8 @@ export function Players() {
           flipped={idx === 0 && p1Flipped}
           idx={idx}
           key={idx}
-          lifeTotal={players[idx].life}
           order={order}
+          player={players[idx]}
         />
       );
     }
